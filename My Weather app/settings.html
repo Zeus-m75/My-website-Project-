@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            background-image: url(img/background2.jpg)
+        }
+        .settings-container {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .setting {
+            margin: 10px 0;
+        }
+        .background-picker {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toggle input {
+            margin-left: 10px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .back-button {
+            background-color: #6c757d;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+<div class="settings-container">
+    <h2>Weather App Settings</h2>
+    <div class="setting">
+        <label for="background">Choose Background Color:</label>
+        <input type="color" id="background" class="background-picker" value="#ffffff">
+    </div>
+    <div class="setting">
+        <label for="temperature">Temperature Unit:</label>
+        <select id="temperature">
+            <option value="Celsius">°C</option>
+            <option value="Fahrenheit">°F</option>
+        </select>
+    </div>
+    <div class="setting toggle">
+        <label for="notifications">Enable Notifications:</label>
+        <input type="checkbox" id="notifications">
+    </div>
+    <div class="setting">
+        <label for="city">Saved City:</label>
+        <input type="text" id="city" placeholder="Enter city">
+    </div>
+    <div class="setting">
+        <label for="refresh-interval">Refresh Interval (minutes):</label>
+        <input type="number" id="refresh-interval" min="1" max="60" value="5">
+    </div>
+    <div class="setting toggle">
+        <label for="dark-mode">Enable Dark Mode:</label>
+        <input type="checkbox" id="dark-mode">
+    </div>
+    <div class="setting">
+        <label for="language">Language:</label>
+        <select id="language">
+            <option value="English">English</option>
+            <option value="Spanish">Español</option>
+            <option value="French">Français</option>
+            <option value="German">Deutsch</option>
+        </select>
+    </div>
+    <div class="setting toggle">
+        <label for="show-wind">Show Wind Speed:</label>
+        <input type="checkbox" id="show-wind">
+    </div>
+    <div class="setting toggle">
+        <label for="show-humidity">Show Humidity:</label>
+        <input type="checkbox" id="show-humidity">
+    </div>
+    <div class="setting">
+        <label for="wind-units">Wind Speed Units:</label>
+        <select id="wind-units">
+            <option value="metric">m/s</option>
+            <option value="imperial">mph</option>
+        </select>
+    </div>
+    <div class="setting toggle">
+        <label for="show-sun-times">Show Sunrise/Sunset Times:</label>
+        <input type="checkbox" id="show-sun-times">
+    </div>
+    <button id="saveSettings">Save Settings</button>
+    <button class="back-button" onclick="goBack()">Back</button>
+</div>
+
+<script>
+    const backgroundPicker = document.getElementById('background');
+    const saveSettingsButton = document.getElementById('saveSettings');
+    const temperatureSelect = document.getElementById('temperature');
+    const notificationsCheckbox = document.getElementById('notifications');
+    const cityInput = document.getElementById('city');
+    const refreshIntervalInput = document.getElementById('refresh-interval');
+    const darkModeCheckbox = document.getElementById('dark-mode');
+    const languageSelect = document.getElementById('language');
+    const showWindCheckbox = document.getElementById('show-wind');
+    const showHumidityCheckbox = document.getElementById('show-humidity');
+    const windUnitsSelect = document.getElementById('wind-units');
+    const showSunTimesCheckbox = document.getElementById('show-sun-times');
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedBackground = localStorage.getItem('backgroundColor') || '#ffffff';
+        const savedTemperature = localStorage.getItem('temperatureUnit') || 'Celsius';
+        const savedNotifications = localStorage.getItem('notifications') === 'true';
+        const savedCity = localStorage.getItem('savedCity') || '';
+        const savedInterval = localStorage.getItem('refreshInterval') || 5;
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        const savedLanguage = localStorage.getItem('language') || 'English';
+        const savedShowWind = localStorage.getItem('showWind') === 'true';
+        const savedShowHumidity = localStorage.getItem('showHumidity') === 'true';
+        const savedWindUnits = localStorage.getItem('windUnits') || 'metric';
+        const savedShowSunTimes = localStorage.getItem('showSunTimes') === 'true';
+
+        document.body.style.backgroundColor = savedBackground;
+        backgroundPicker.value = savedBackground;
+        temperatureSelect.value = savedTemperature;
+        notificationsCheckbox.checked = savedNotifications;
+        cityInput.value = savedCity;
+        refreshIntervalInput.value = savedInterval;
+        darkModeCheckbox.checked = savedDarkMode;
+        languageSelect.value = savedLanguage;
+        showWindCheckbox.checked = savedShowWind;
+        showHumidityCheckbox.checked = savedShowHumidity;
+        windUnitsSelect.value = savedWindUnits;
+        showSunTimesCheckbox.checked = savedShowSunTimes;
+
+        
+        if (savedDarkMode) {
+            document.body.style.backgroundColor = '#333';
+            document.querySelector('.settings-container').style.backgroundColor = '#444';
+            document.querySelector('h2').style.color = '#fff';
+            document.querySelectorAll('label').forEach(label => label.style.color = '#fff');
+        }
+    });
+
+    
+    backgroundPicker.addEventListener('input', (event) => {
+        document.body.style.backgroundColor = event.target.value;
+    });
+
+    
+    saveSettingsButton.addEventListener('click', () => {
+        localStorage.setItem('backgroundColor', backgroundPicker.value);
+        localStorage.setItem('temperatureUnit', temperatureSelect.value);
+        localStorage.setItem('notifications', notificationsCheckbox.checked);
+        localStorage.setItem('savedCity', cityInput.value);
+        localStorage.setItem('refreshInterval', refreshIntervalInput.value);
+        localStorage.setItem('darkMode', darkModeCheckbox.checked);
+        localStorage.setItem('language', languageSelect.value);
+        localStorage.setItem('showWind', showWindCheckbox.checked);
+        localStorage.setItem('showHumidity', showHumidityCheckbox.checked);
+        localStorage.setItem('windUnits', windUnitsSelect.value);
+        localStorage.setItem('showSunTimes', showSunTimesCheckbox.checked);
+
+        
+        if (darkModeCheckbox.checked) {
+            document.body.style.backgroundColor = '#333';
+            document.querySelector('.settings-container').style.backgroundColor = '#444';
+            document.querySelector('h2').style.color = '#fff';
+            document.querySelectorAll('label').forEach(label => label.style.color = '#fff');
+        } else {
+            document.body.style.backgroundColor = backgroundPicker.value;
+        }
+
+        alert('Settings saved!');
+    });
+
+    
+    function goBack() {
+        window.location.href = 'index.html'; 
+    }
+</script>
+
+</body>
+</html>

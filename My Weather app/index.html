@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer></script>
+      <style>
+    body{
+        transition: background 0.5s ease;
+        background-size: cover;
+        color:#fff;
+        text-align: center;
+        height: 100vh;
+}
+.container{
+        padding: 20px;
+    }
+</style>
+  </head>
+  <body>
+    <h1>Weather Dashboard</h1>
+      <div id="clock"></div>
+    <div class="container">
+      <div class="weather-input">
+        <h3>Enter a City Name</h3>
+        <input class="city-input" type="text" placeholder="E.g., Kafue, Lusaka, Chalala">
+        <button class="search-btn">Search</button>
+        <div class="separator"></div>
+        <button class="location-btn">Use Current Location</button>
+      </div>
+      <div class="weather-data">
+        <div class="current-weather">
+          <div class="details">
+            <h2>_____</h2>
+            <h6>Temperature: °C</h6>
+            <h6>Wind:  Km/h</h6>
+            <h6>Humidity: %</h6>
+          </div>
+        </div>
+        <div class="days-forecast">
+          <h2>_______________________________5-Day Forecast_______________________________
+            </h2>
+          <ul class="weather-cards">
+            <li class="card">
+              <h3>_____ </h3>
+              <h6>Temp: &deg;C</h6>
+              <h6>Wind: Km/h</h6>
+              <h6>Humidity: %</h6>
+            </li>
+            <li class="card">
+              <h3>_____</h3>
+              <h6>Temp: &deg;C</h6>
+              <h6>Wind:  Km/h</h6>
+              <h6>Humidity: %</h6>
+            </li>
+            <li class="card">
+              <h3>_____</h3>
+              <h6>Temp: &deg;C</h6>
+              <h6>Wind:  Km/h</h6>
+              <h6>Humidity: %</h6>
+            </li>
+            <li class="card">
+              <h3>_____</h3>
+              <h6>Temp: &deg;C</h6>
+              <h6>Wind:  Km/h</h6>
+              <h6>Humidity: %</h6>
+            </li>
+            <li class="card">
+              <h3>_____</h3>
+              <h6>Temp: &deg;C</h6>
+              <h6>Wind:  Km/h</h6>
+              <h6>Humidity: %</h6>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+<script>
+   function updateClock(){
+       const now = new Date();
+       const hours = 
+             String(now.getHours()).padStart(2, '0');
+       const minutes = 
+             String(now.getMinutes()).padStart(2, '0');
+       const seconds = 
+             String(now.getSeconds()).padStart(2, '0');
+       
+       const timeString = `${hours}:${minutes}:${seconds}`;
+       
+       document.getElementById('clock').textContent = timeString;
+   }
+       setInterval(updateClock, 1000);
+             
+</script>
+<footer>
+    <li><a href="https://www.icuzambia.net">ICU Zambia</a></li>
+         <li><a href="https://www.zrdc.org">ZRDC</a></li>
+<td align="middle"><span class="Copyright">Lusaka Province. All Rights Reserved. Designed and Maintained By Mwansa Jonathan Musenge, SIN:2303845080 </span></td>
+    <a href="settings.html" class="settings-button"><span class="settings-icon">&#9881;Settings</span></a>
+</footer>
+  </body>
+</html>
